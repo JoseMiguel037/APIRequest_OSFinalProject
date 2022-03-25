@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+#
+#Script para tomar datos de la API y subir datos a ThingSpeak
+#
+#Toma de datos de la API
+
+curl -O https://emojihub.herokuapp.com/api/random | jq
+cat random
+
+grep -c "smileys and people" random
+comp2=$(grep -c "animals and nature" random)
+comp3=$(grep -c "food and drink" random)
+comp4=$(grep -c "travel and places" random)
+comp5=$(grep -c "activities" random)
+comp6=$(grep -c "objects" random)
+comp7=$(grep -c "symbols" random)
+comp8=$(grep -c "flags" random)
+
+echo($comp1)
+
+if ["$comp1" -eq 1]; then catego=1 fi
+
+
+#[sali==*"smiley_and_people"*]
+
+#Impresion de datos en ThingSpeak
+api_key=LJ2Q84BYNMJOW096
+categ=${2}
+gro=${1}
+
+curl --data "api_key=${api_key}&field1=${gro}&field2=${categ}" https://api.thingspeak.com/update
