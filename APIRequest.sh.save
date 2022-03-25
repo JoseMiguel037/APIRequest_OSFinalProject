@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-url="www.google.com"
-curl -v
- "$url"
